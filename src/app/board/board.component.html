@@ -1,21 +1,19 @@
-<h1>Current Player: {{ player }}</h1>
+<h1>Current Player: {{ player }} </h1>
 
 <div class ="wrapper">
     <button class ="button" nbButton outline status="danger" (click) ="newGame()">Start new Game</button>
-</div>  
+</div>
 
 <h2 *ngIf="(winner) && (winner != 'draw'); else draw;">
-        Player {{ winner }} won the game!
+    Player {{ winner }} won the game!
 </h2>   
 
 <ng-template #draw >
-    <h2 *ngIf="(winner=='draw')">
-        It's a draw!
-    </h2>
-</ng-template>
+<h2 *ngIf="(winner=='draw')">
+    It's a draw!
+</h2>
 
 <main>
-    
         <app-square 
             *ngFor="let val of squares; let i = index" 
             [value]="val"

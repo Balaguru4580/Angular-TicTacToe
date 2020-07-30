@@ -35,14 +35,6 @@ export class BoardComponent implements OnInit {
       this.xIsNext = !this.xIsNext;
     }
     this.winner = this.calculateWinner();
-
-
-    if (this.winner != null) {
-      var time = 5000;
-      setTimeout(() => { this.newGame(); }, time);
-
-
-    } 3
   }
 
   calculateWinner() {
