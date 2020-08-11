@@ -1,14 +1,14 @@
 {
   "targets": {
-    "instafire-app": {
+    "tictactoebro-754d2": {
       "hosting": {
         "myapp": [
-          "instafire-app"
+          "tictactoebro-754d2"
         ]
       }
     }
   },
   "projects": {
-    "default": "instafire-app"
+    "default": "tictactoebro-754d2"
   }
 }

@@ -1,22 +1,24 @@
-<h1>Current Player: {{ player }}</h1>
+<h1 [@faderino]>Current Player: {{ player }}</h1>
 
-<div class ="wrapper">
+<div [@faderino] class ="wrapper">
     <button class ="button" nbButton outline status="danger" (click) ="newGame()">Start new Game</button>
 </div>  
 
-<h2 *ngIf="(winner) && (winner != 'draw'); else draw;">
+<h2 *ngIf="(winner == null)">&nbsp;</h2>
+
+<h2 [@faderino] *ngIf="(winner) && (winner != 'draw'); else draw;">
         Player {{ winner }} won the game!
 </h2>   
 
 <ng-template #draw >
-    <h2 *ngIf="(winner=='draw')">
+    <h2 [@faderino] *ngIf="(winner=='draw')">
         It's a draw!
     </h2>
 </ng-template>
 
-<main>
+<main [@drop] = "currentState">
     
-        <app-square 
+        <app-square
             *ngFor="let val of squares; let i = index" 
             [value]="val"
             (click)="makeMove(i)" 
