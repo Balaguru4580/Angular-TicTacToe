@@ -1,3 +1,3 @@
-# Angular Tic-Tac-Toe PWA
+<h1>Angular TicTacToe By Fireship.io. BRX Variation.</h1>
 
-[Full Angular Course](https://fireship.io/courses/angular/)
+[Try it out here!](https://brictactoe.web.app/)
