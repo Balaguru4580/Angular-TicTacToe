@@ -1,13 +1,5 @@
 {
-  "targets": {
-    "tictactoebro-754d2": {
-      "hosting": {
-        "myapp": [
-          "tictactoebro-754d2"
-        ]
-      }
-    }
-  },
+  
   "projects": {
     "default": "tictactoebro-754d2"
   }

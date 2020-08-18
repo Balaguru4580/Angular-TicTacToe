@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NumberValueAccessor } from '@angular/forms';
 import {
   trigger,
   state,
@@ -7,6 +6,7 @@ import {
   animate,
   transition
 } from '@angular/animations';
+import { ScoreTransService } from '../score-trans.service';
 
 @Component({
   selector: 'app-board',
@@ -22,7 +22,7 @@ import {
         animate(250)
       ]),
     ]),
-    
+
     trigger('drop', [
       state("rest", style({
         opacity: 1,
@@ -30,10 +30,10 @@ import {
       })),
       state("final", style({
         opacity: 0.75,
-        transform: 'translateY(-5%)' 
+        transform: 'translateY(-5%)'
       })),
       transition(':enter', [
-        style({opacity: 0, transform: 'translateY(0)'}),
+        style({ opacity: 0, transform: 'translateY(0)' }),
         animate('500ms 0s ease-in')
       ]),
       transition('rest => final', [
@@ -43,7 +43,8 @@ import {
         animate('200ms')
       ])
     ]),
-  ]})
+  ]
+})
 
 export class BoardComponent implements OnInit {
   squares: string[];
@@ -52,11 +53,16 @@ export class BoardComponent implements OnInit {
   draw: string;
   count: number;
   currentState = 'rest';
+  Xwins: number;
+  Ywins: number;
+  Score: [number, number];
 
-  constructor() { }
+  constructor(private ScoreData: ScoreTransService) { }
 
   ngOnInit() {
-    this.newGame();
+
+    this.ScoreData.currentScore.subscribe(Xwins => this.Score = Xwins);
+    this.resetScr();
   }
 
   newGame() {
@@ -64,6 +70,14 @@ export class BoardComponent implements OnInit {
     this.winner = null;
     this.xIsNext = true;
     this.currentState = "rest"
+  }
+
+  resetScr() {
+    this.Xwins = 0;
+    this.Ywins = 0;
+    this.Score = [this.Xwins, this.Ywins];
+    this.ScoreData.changeScore(this.Score);
+    this.newGame();
   }
 
   get player() {
@@ -76,6 +90,16 @@ export class BoardComponent implements OnInit {
       this.xIsNext = !this.xIsNext;
     }
     this.winner = this.calculateWinner();
+    if (this.winner == 'X') {
+      this.Xwins++;
+      this.Score = [this.Xwins, this.Ywins];
+      this.ScoreData.changeScore(this.Score);
+    }
+    else if (this.winner == 'O') {
+      this.Ywins++;
+      this.Score = [this.Xwins, this.Ywins];
+      this.ScoreData.changeScore(this.Score);
+    }
 
   }
 
