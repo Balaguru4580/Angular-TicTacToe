@@ -17,9 +17,15 @@ import {
       state("nomove", style({
         opacity: 1
       })),
+      state("clutch", style({
+        opacity: 0
+      })),
       transition(':enter', [
         style({ opacity: 0 }),
         animate(1000)
+      ]),
+      transition('nomove => clutch', [
+        animate(1000, style({ opacity: 0 })),
       ]),
     ]),
   ]

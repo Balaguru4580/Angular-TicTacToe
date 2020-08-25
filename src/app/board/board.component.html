@@ -1,6 +1,4 @@
-<h1 [@faderino]>Current Player: {{ Xwins }}</h1>
-
-
+<h1 [@faderino]>Current Player: {{ player }}</h1>
 
 <div [@faderino] class ="wrapper">
     <button class ="button" nbButton outline status="danger" (click) ="newGame()">Start new Game</button>
@@ -21,7 +19,7 @@
 </ng-template>
 
 <main [@drop] = "currentState">
-    
+     
         <app-square
             *ngFor="let val of squares; let i = index" 
             [value]="val"
