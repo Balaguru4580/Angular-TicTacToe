@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
     <button mat-button class="disa" color = "warn" *ngIf="value == 'X'">{{ value }}</button>
     <button mat-button class="disa" color = "primary" *ngIf="value == 'O'">{{ value }}</button>
   `,
-  styles: ['button { width: 100%; height: 100%; font-size: 5em !important;}','.init{background-color: #1f1d40 ;}','.disa{background-color: #27254f;}',]
+  styles: ['button { width: 100%; height: 100%; font-size: 5em !important;}','.init{background-color: #343069 ;}','.init:hover{background-color: #2c2959}','.disa{background-color: #27254f  ;}',]
 })
 export class SquareComponent  {
 
