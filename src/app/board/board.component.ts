@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import {
   trigger,
   state,
@@ -56,13 +56,28 @@ export class BoardComponent implements OnInit {
   Xwins: number;
   Ywins: number;
   Score: [number, number];
+  mode: boolean;
+  min: number;
+  max: number;
 
   constructor(private ScoreData: ScoreTransService) { }
+
 
   ngOnInit() {
 
     this.ScoreData.currentScore.subscribe(Xwins => this.Score = Xwins);
     this.resetScr();
+  }
+
+  modeSingle() {
+
+    //Single Player tiiiime
+    if (this.winner == null && this.mode == true) {
+      if (this.xIsNext == true) {
+        this.makeMove(4);
+      }
+    }
+
   }
 
   newGame() {
@@ -84,10 +99,38 @@ export class BoardComponent implements OnInit {
     return this.xIsNext ? 'X' : 'O';
   }
 
+  Smove() { //Calculates for computer moves in one of 2 ways
+    let idx = this.rnd(0, 8);
+    if (!this.squares[idx]) { //random
+      this.xIsNext = !(this.xIsNext);
+      this.squares.splice(idx, 1, this.player);
+      this.xIsNext = !(this.xIsNext);
+    }
+    else {
+      for (let i = 0; i < 9; i++) {  //sequential
+        if (this.squares[i] == null) {
+          this.xIsNext = !(this.xIsNext);
+          this.squares.splice(i, 1, this.player);
+          this.xIsNext = !(this.xIsNext);
+          break;
+        }
+      }
+    }
+  }
+
+  rnd(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min); //RNG
+  }
+
   makeMove(idx: number) {
     if (!this.squares[idx]) {
       this.squares.splice(idx, 1, this.player);
-      this.xIsNext = !this.xIsNext;
+      if (this.xIsNext == true && this.mode == true) {//LOGIC for the SINGLE player based on mode and current player
+        this.Smove();
+      }
+      else {
+        this.xIsNext = !(this.xIsNext); // 2 player outcome
+      }
     }
     this.winner = this.calculateWinner();
     if (this.winner == 'X') {
@@ -103,7 +146,7 @@ export class BoardComponent implements OnInit {
 
   }
 
-  calculateWinner() {
+  calculateWinner() { //winner calculator
     this.count++;
     const lines = [
       [0, 1, 2],
@@ -130,7 +173,7 @@ export class BoardComponent implements OnInit {
         return this.squares[a];
       }
     }
-    if ((this.squares.every(x => x != null))) {
+    if ((this.squares.every(x => x != null))) { //DRAW condition!
       this.currentState = "final";
       return 'draw';
     }

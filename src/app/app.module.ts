@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { SquareComponent } from './square/square.component';
 import { BoardComponent } from './board/board.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbButtonModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbButtonModule, NbToggleModule } from '@nebular/theme';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -29,6 +29,7 @@ import { ScoreBoardComponent } from './score-board/score-board.component';
     NbLayoutModule,
     NbEvaIconsModule,
     NbButtonModule,
+    NbToggleModule,
     MatButtonModule,
     MatTableModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
