@@ -9,3 +9,4 @@ Installation Instructions:
   2. Install dependencies using npm install
   3. Run it in development mode using `ng serve`
   4. Deployment build can be made by using `ng build`
+  5. Done!
