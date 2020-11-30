@@ -12,9 +12,15 @@ jobs:
       - uses: actions/checkout@v2
       - run: npm install
       - run: npm run build
-      - name: Heroku deploy
-        uses: CDNievas/heroku-action@v1.0 
-        with:
-          heroku_email: "balaguru4580@gmail.com"
-          heroku_api_key: ${{secrets.heroku}}
-          heroku_app_name: "tickytacktoe"
+      - name: Heroku Container Access
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:login
+      - name: Build and push app
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web 
+      - name: Release app
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web 
