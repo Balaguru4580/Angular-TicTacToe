@@ -1,4 +1,4 @@
-<h1>Angular Tic Tac Toe. Bro.</h1>
+<h1>Angular Tic Tac Toe.</h1>
 
 [Try it out here!](https://brictactoe.web.app/)
 
