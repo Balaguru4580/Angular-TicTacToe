@@ -59,6 +59,7 @@ export class BoardComponent implements OnInit {
   mode: boolean;
   min: number;
   max: number;
+  disableSinglePlayerToggle = false;
 
   constructor(private ScoreData: ScoreTransService) { }
 
@@ -84,7 +85,8 @@ export class BoardComponent implements OnInit {
     this.squares = Array(9).fill(null);
     this.winner = null;
     this.xIsNext = true;
-    this.currentState = "rest"
+    this.currentState = "rest";
+    this.disableSinglePlayerToggle = false;
   }
 
   resetScr() {
@@ -123,6 +125,7 @@ export class BoardComponent implements OnInit {
   }
 
   makeMove(idx: number) {
+    this.disableSinglePlayerToggle = true;
     if (!this.squares[idx]) {
       this.squares.splice(idx, 1, this.player);
       if (this.xIsNext == true && this.mode == true) {//LOGIC for the SINGLE player based on mode and current player
