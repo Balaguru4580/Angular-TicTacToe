@@ -23,7 +23,7 @@
         <app-square
             *ngFor="let val of squares; let i = index" 
             [value]="val"
-            (click)="winner ? null : makeMove(i)" 
+            (click)="(disableHumanPlayerInteraction || winner) ? null : makeMove(i)"
             [flag]="winner">
         </app-square>
 
