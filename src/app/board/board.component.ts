@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   trigger,
   state,
@@ -60,6 +60,7 @@ export class BoardComponent implements OnInit {
   min: number;
   max: number;
   disableSinglePlayerToggle = false;
+  disableHumanPlayerInteraction = false;
 
   constructor(private ScoreData: ScoreTransService) { }
 
@@ -68,17 +69,6 @@ export class BoardComponent implements OnInit {
 
     this.ScoreData.currentScore.subscribe(Xwins => this.Score = Xwins);
     this.resetScr();
-  }
-
-  modeSingle() {
-
-    //Single Player tiiiime
-    if (this.winner == null && this.mode == true) {
-      if (this.xIsNext == true) {
-        this.makeMove(4);
-      }
-    }
-
   }
 
   newGame() {
@@ -124,17 +114,7 @@ export class BoardComponent implements OnInit {
     return Math.floor(Math.random() * (max - min + 1) + min); //RNG
   }
 
-  makeMove(idx: number) {
-    this.disableSinglePlayerToggle = true;
-    if (!this.squares[idx]) {
-      this.squares.splice(idx, 1, this.player);
-      if (this.xIsNext == true && this.mode == true) {//LOGIC for the SINGLE player based on mode and current player
-        this.Smove();
-      }
-      else {
-        this.xIsNext = !(this.xIsNext); // 2 player outcome
-      }
-    }
+  checkGameOver() {
     this.winner = this.calculateWinner();
     if (this.winner == 'X') {
       this.Xwins++;
@@ -145,6 +125,32 @@ export class BoardComponent implements OnInit {
       this.Ywins++;
       this.Score = [this.Xwins, this.Ywins];
       this.ScoreData.changeScore(this.Score);
+    }
+
+  }
+
+  makeMove(idx: number) {
+    this.disableSinglePlayerToggle = true;
+    if (!this.squares[idx]) {
+      this.squares.splice(idx, 1, this.player);
+      if (this.xIsNext == true && this.mode == true) {//LOGIC for the SINGLE player based on mode and current player
+        const COMPUTER_TURN_DELAY = 750; // 500;
+
+        this.checkGameOver();
+
+        if (!this.winner) {
+          this.disableHumanPlayerInteraction = true;
+
+          setTimeout(()=> {
+            this.Smove();
+            this.disableHumanPlayerInteraction = false;
+          }, COMPUTER_TURN_DELAY)
+        }
+      }
+      else {
+        this.xIsNext = !(this.xIsNext); // 2 player outcome
+        this.checkGameOver();
+      }
     }
 
   }
