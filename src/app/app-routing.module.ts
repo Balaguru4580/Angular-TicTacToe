@@ -6,8 +6,6 @@ const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [Router]
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
-BALAGURU
