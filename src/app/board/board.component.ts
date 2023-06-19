@@ -133,8 +133,8 @@ export class BoardComponent implements OnInit {
     this.disableSinglePlayerToggle = true;
     if (!this.squares[idx]) {
       this.squares.splice(idx, 1, this.player);
-      if (this.xIsNext == true && this.mode == true) {//LOGIC for the SINGLE player based on mode and current player
-        const COMPUTER_TURN_DELAY = 750; // 500;
+      if (this.xIsNext && this.mode) {//LOGIC for the SINGLE player based on mode and current player
+        const COMPUTER_TURN_DELAY = 750; //Computer Delay for natural play flow
 
         this.checkGameOver();
 
